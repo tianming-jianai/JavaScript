@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* 原型 */
+			class Car {
+				constructor(color) {
+					this.color = color
+				}
+
+				getColor() {
+					return ths.color
+				}
+			}
+
+			let car = {};
+			Object.setPrototypeOf(car, Car.prototype);
+			console.log(Object.getPrototypeOf(car));
+
+
+			/* super关键字 */
+			class Vehicle {
+				constructor(color) {
+					this.color = color
+				}
+
+			}
+
+			class Car2 extends Vehicle {
+				constructor(color, passengers) {
+					super(color)
+					this.passengers = passengers
+				}
+			}
+			let car2 = new Car2('blue', 4)
+			console.log(car2);
+			console.log(car2.color);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/* 在没有let语句之前，要定义私有成员，需要使用闭包 */
+			var Car;
+			(function() {
+				//私有变量
+				var _color = null;
+
+				//构造函数
+				Car = function(color) {
+					_color = color;
+				}
+
+				Car.prototype.setColor = function(value) {
+					_color = value;
+				}
+
+				Car.prototype.getColor = function() {
+					return _color;
+				}
+			})();
+
+			var car = new Car('red');
+			console.log(car._color)
+			console.log(car.getColor())
+			car.setColor('black')
+			console.log(car.getColor())
+
+			//let没有闭包那么麻烦
+			let Car2; {
+				//私有变量
+				let _color = null;
+
+				//构造函数
+				Car2 = function(color) {
+					_color = color;
+				}
+
+				Car2.prototype.setColor = function(value) {
+					_color = value;
+				}
+
+				Car2.prototype.getColor = function() {
+					return _color;
+				}
+			}
+			let car2 = new Car2('white');
+			console.log(car2._color);
+			console.log(car2.getColor());
+			car2.setColor('green')
+			console.log(car2.getColor());
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

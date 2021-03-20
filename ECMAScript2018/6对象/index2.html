@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* assign方法 对象复制*/
+			/* 将默认配置和特定配置合并，通过对象复制实现继承 */
+			let obj1 = {
+					x: 1,
+					y: 2
+				},
+				obj2 = {
+					z: 3
+				}
+			Object.assign(obj2, obj1)
+			console.log(obj2); //{z: 3, x: 1, y: 2}
+			console.log(obj1); //{x: 1, y: 2}
+
+			/* 1.合并多个对象 */
+			let obj3 = {
+					x: 1
+				},
+				obj4 = {
+					y: 1
+				},
+				obj5 = {
+					z: 1
+				}
+			obj = Object.assign({}, obj3, obj4, obj5)
+			console.log(obj);
+
+			/* 2.重复的成员 */
+			let obj6 = {
+					x: 1
+				},
+				obj7 = {
+					x: 2
+				},
+				obj8 = {
+					x: 3
+				};
+			obj9 = Object.assign({}, obj6, obj7, obj8)
+			console.log(obj9);
+			
+			/* 3.深度复制问题 */
+			let obj10 = {a:1,b:{y:1}},
+			obj11 = Object.assign({},obj10);
+			console.log(obj10);
+			obj11.b.y = 2;
+			console.log(obj10);//{a: 1, b: {y:2}}
+			
+			/* 4.混入功能 */
+			class Observable{
+				on(){return 'on'}
+				un(){return 'un'}
+			}
+			class Floating{
+				float(){return 'float'}
+			}
+			class Component extends Observable{
+				setSize(){return 'setSize'}
+			}
+			
+			Object.assign(Component.prototype,{float:Floating.prototype.float})
+			
+			var cmp = new Component();
+			console.log(cmp.on());
+			console.log(cmp.un());
+			console.log(cmp.float());
+			console.log(cmp.setSize());
+			
+			/* 5.默认值 */
+			class MyClass{
+				constructor(options) {
+				    let defaults = {x:1,y:1}
+						this.options = Object.assign({},defaults,options)
+				}
+			}
+			let c = new MyClass({x:3});
+			console.log(c.options);
+		</script>
+	</body>
+</html>

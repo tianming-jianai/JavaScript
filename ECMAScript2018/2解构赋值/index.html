@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+	<body>
+		<div style="display: block;width: 100px;height: 100px;background-color: red;" data="1" class="block" id="block1"></div>
+		<script type="text/javascript">
+			let el = document.getElementById('block1');
+			//手动挡
+			/* let style = el.style,
+				width = style.width,
+				height = style.height,
+				bg = style.backgroundColor,
+				className = el.getAttribute('class'),
+				value = el.getAttribute('data');
+			console.log(width, height, bg, className, value); */
+			//自动挡
+			let {style:{width,height,backgroundColor:bg},className,attributes:{data:{value}}} = el;
+			console.log(width, height, bg, className, value);
+			
+			//自定义变量名：用冒号来为它声明新的变量名
+		</script>
+	</body>
+</html>

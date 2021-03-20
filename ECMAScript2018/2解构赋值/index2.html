@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+	<body>
+		<div>
+			<ul id="list1">
+				<li>选项1</li>
+				<li>选项2</li>
+				<li>选项3</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			/* 剩余项 */
+			let [x, ...y] = [1, 2, 3, 4]
+			console.log(x, y);
+
+			/* 默认值 */
+			let [a = 1, b = 1, c = 1] = [4, 5]
+			console.log(a, b, c);
+
+			/* 函数参数 */
+			/* document.getElementById('list1').addEventListener('click',
+				function onDivClick(event) {
+					let target = event.target;
+					if (target.tagName === 'LI') {
+						let style = target.style;
+						style.backgroundColor = style.backgroundColor === '' ? '#ededed' : '';
+					}
+				}); */
+			document.getElementById("list1").addEventListener('click',
+				function({
+					target: {
+						tagName,
+						style
+					}
+				}) {
+					if (tagName === 'LI') {
+						style.backgroundColor = style.backgroundColor === '' ? '#ededed' : '';
+					}
+				});
+
+
+			/* 忽略某些数据 */
+			function foo() {
+				return [1, 2, 3]
+			}
+			let [, , z] = foo();
+			console.log(z); //3
+
+			function foo2(...[x, , y]) {
+				console.log(x, y);
+			}
+			foo2(1, 2, 3); //1 3
+
+			/* 克隆数组 */
+			var array = [1, 2, 3]
+			let [...clone] = array;
+			console.log(clone);
+			clone.push('5');
+			console.log(clone);
+			console.log(array);
+
+			let arr = array.slice(0)
+			console.log('arr:', arr);
+
+			/* 数据交换 */
+			let m = 1,
+				n = 2;
+			[n, m] = [m, n]
+			console.log('m:', m, 'n:', n); //m: 2 n: 1
+
+			/* 返回多个值 */
+			function rtn() {
+				return [1, 2];
+			}
+			let [o, p] = rtn();
+			console.log('o:', o, 'p:', p); //o: 1 p: 2
+
+			function rtn2() {
+				return {
+					r: 1,
+					s: 2
+				};
+			}
+			let {
+				r,
+				s
+			} = rtn2();
+			console.log('r:', r, 's:', s); //r: 1 s: 2
+		</script>
+	</body>
+</html>

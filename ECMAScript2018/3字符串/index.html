@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<h1>
+				<p id="p1"></p>
+				<p id="p2"></p>
+				<p id="p3"></p>
+				<p id="p4"></p>
+			</h1>
+
+		</div>
+
+		<script type="text/javascript">
+			/* normalize字符规范化 */
+			document.getElementById("p1").innerText = String.fromCodePoint(128578)
+			document.getElementById("p2").innerText = String.fromCodePoint(128578, 128579, 128580)
+			str1 = '\u212b'
+			str2 = '\u0041\u030a'
+			document.getElementById("p3").innerText = str1;
+			document.getElementById("p4").innerText = str2;
+			console.log(str1 == str2); //false
+			console.log(str1.normalize() == str2.normalize()); //true
+			
+			/* includes */
+			let str =  'hello world';
+			console.log(str.indexOf('world'));//6
+			console.log(str.indexOf('world')>=0);//true
+			console.log(str.includes('world'));//true
+			
+			/* startWtith */
+			console.log(str.indexOf('hello') === 0);
+			console.log(str.startsWith('hello'));
+			
+			console.log(str.indexOf('world') === 6);
+			console.log(str.startsWith('world',6));// 判断是否从指定位置开始
+		</script>
+	</body>
+</html>

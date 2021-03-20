@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//7.6 在参数中使用尾后逗号Trailing commas
+			function Foo(x, ) {
+				console.log(x);
+			}
+			Foo(1)
+			//7.7 箭头函数
+			//7.7.2 箭头必须与参数在同一行
+			let fn = args => console.log(args);
+			fn(1)
+			//7.7.3 不绑定this
+			class Counter {
+				constructor() {
+					this.counter = 1;
+					setTimeout(function() {
+						this.counter++;
+						console.log(this.counter);
+					}, 1000)
+				}
+			}
+			let counter = new Counter(); //NaN
+			// 在以上代码中，setTimeout 的回调函数的this的预期是Counter实例自身，这样才能使用它的属性counter但在运行的时候，实际的this指向window对象，从而出现输出结果为NaN的错误
+			class Counter2 {
+				constructor() {
+					let me = this
+					me.counter = 1
+					setTimeout(function() {
+						me.counter++
+						console.log(me.counter);
+					}, 1000)
+				}
+			}
+			let fn2 = new Counter2() //2
+			//还有一种方式就是使用bind方法将this绑定到函数
+			//TODO !!! apply call bind
+
+			//如果将函数替代为箭头函数，就不会出现这种问题了，因为他会从自己的作用域链的上一层继承this
+			class Counter3 {
+				constructor() {
+					this.counter = 1
+					setTimeout(() => {
+						this.counter++
+						console.log(this.counter);
+					}, 1000)
+				}
+			}
+			let fn3 = new Counter3() //2
+			//由于箭头函数继承了上一层的this指针，因此使用call或apply方法调用箭头函数并传递this参数的时候是没有效果的
+
+			//7.7.4 没有arguments对象
+			let fn4 = (x, ...y) => console.log(y[0], y[1]);
+			fn4(1, 2, 3, 4) //2 311
+
+			//7.7.5 如果不能确保this指针指向对象自身且需要在方法内使用this，不建议使用this
+			//7.7.6 不能用作构造函数
+			// 由于箭头函数不能用作构造器，因此不能使用new操作符来调用，不然会抛出错误
+
+			//7.7.7 没有原型
+			console.log(fn4.prototype); //undefined
+
+			//7.7.8 不能用作生成器 箭头函数中不能使用yield关键字
+
+			//7.7.9 返回对象字面量
+			// (函数体大括号，对象字面量大括号，return)不能少
+			let fn5 = () => {
+				return {
+					x: 1
+				}
+			}
+			console.log(fn5()); //{x:1}
+		</script>
+	</body>
+</html>

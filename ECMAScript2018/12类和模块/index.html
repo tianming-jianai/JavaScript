@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			class Car {
+				constructor(color) {
+					this._color = color
+				}
+				get color() {
+					return this._color
+				}
+				set color(value) {
+					this._color = value
+				}
+			}
+
+			let car = new Car('blue');
+			console.log(car.color);
+			car.color = 'yellow'
+			console.log(car.color);
+		</script>
+	</body>
+</html>

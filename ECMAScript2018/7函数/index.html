@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//7.1 参数的默认值
+			function foo(x) {
+				x = x || 1;
+				console.log(x);
+			}
+
+
+			// 都是1
+			foo(false)
+			foo(NaN)
+			foo(0)
+			foo('')
+			foo(undefined)
+			foo()
+			console.log('----------');
+
+			// ES6中可以直接为参数设置默认值，还可以使用表达式和参数的值来作为默认值
+			//7.1.1 设置默认值 
+			function foo2(x = 1) {
+				console.log(x);
+			}
+			foo2(false) //false
+			foo2(NaN) //NaN
+			foo2(0) //0
+			foo2('') //
+			foo2(undefined) //1
+			foo2() //1
+			console.log('----------');
+
+			//7.1.2 参数默认值表达式
+			function defaultValue() {
+				return 1;
+			}
+
+			function foo3(x = defaultValue) {
+				console.log(x);
+			}
+			foo3()
+			foo3(undefined)
+			console.log('----------');
+
+			//7.1.3 使用参数值作为默认值
+			function foo4(x, y = x) {
+				console.log(x, y);
+			}
+			foo4(2) //2 2
+
+			//7.1.4 使用参数作为默认值表达式的参数
+			function defaultValue2(x) {
+				return x + 3;
+			}
+
+			function foo5(x, y = defaultValue2(x)) {
+				console.log(y);
+			}
+			foo5(1) //4
+			console.log('*=*=*=*=*=*=*=*');
+
+			//7.2 剩余参数
+			//ES6之前
+			function foo6(x) {
+				console.log(arguments[1]);
+				console.log(arguments[2]);
+			}
+			foo6(1, 2, 3, 4)
+			// 由上可以看出，arguments访问未指定的参数需要先计算好已经定义参数的个数，然后才能定位到未指定的参数，使用起来比较麻烦，
+			// 因而常见的做法是全部参数都通过arguments来获取，而不指定任何具体参数
+			function foo7(x, ...args) {
+				console.log(args);
+			}
+			foo7(1, 2, 3, 5)
+			// 剩余参数必须是参数中的最后一个参数
+
+
+			//7.3 扩展运算符
+			function foo8(x, y) {
+				console.log(x, y);
+			}
+			foo8(...[1, 2, 3, 4])
+		</script>
+	</body>
+</html>

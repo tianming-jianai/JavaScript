@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* values方法 */
+			let obj = {x:1,y:2}
+			console.log(Object.values(obj));
+			
+			/* entries方法 ES2017将对象的成员转换为数组 */
+			let obj2 = {x:1,y:2}
+			array = Object.entries(obj2)
+			console.log(array);
+			console.log(array[0][0],array[0][1],array[1][0],array[1][1]);
+			
+			/* getOwnPropertyDescriptors */
+			/* 1. 弥补assign方法的缺陷 */
+			let obj3 = Object.create({x:1},{y:{value:2},z:{value:3,enumerable:true}})
+			let obj4 = Object.assign({},obj3)
+			 console.log(obj4.x);
+			 console.log(obj4.y);
+			 console.log(obj4.z);
+			 
+			 console.log(obj3);
+			 let obj5 = Object.create(Object.getPrototypeOf(obj3),Object.getOwnPropertyDescriptor(obj3));
+			 console.log(obj5.x);//??
+			 console.log(obj5.y);//??
+			 console.log(obj5.z);
+			 
+			 /* 2.之类不能继承getter方法和setter方法*/
+			 function superClass(){}
+			 superClass.prototype ={get color(){}}
+			 function subClass(){}
+			 subClass.prototype = Object.create(superClass.prototype);
+			 console.log(superClass.prototype);//??
+			 console.log(subClass.prototype);//??
+		</script>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul id="list1">
+			<li>选项1</li>
+			<li>选项2</li>
+			<li>选项3</li>
+		</ul>
+		<script type="text/javascript">
+			/* 属性简写 */
+			function foo() {
+				return {
+					x: 1,
+					y: 2
+				}
+			}
+			let {
+				y,
+				x
+			} = foo()
+			console.log(x, y);
+
+			/* 方法简写 */
+			let car = {
+				getColor() {
+					return 'blue'
+				}
+			}
+			console.log(car.getColor());
+
+			/* 未定义的属性名和方法名 */
+			let propertyName = 'color',
+				car2 = {};
+			car2[propertyName] = 'black';
+			console.log(car2.color);
+			/* ES6写法 */
+			let propertyName2 = 'color',
+				firstChar = /* propertyName2.slice(0,1) */ propertyName2[0],
+				methodName = propertyName2.replace(firstChar, firstChar.toUpperCase());
+			car3 = {
+				[`_${propertyName2}`]: 'yellow',
+				[`get${methodName}`]() {
+					return this._color
+				},
+				[`set${methodName}`](color) {
+					this._color = color
+				}
+			}
+
+			console.log(car3);
+			console.log(car3._color);
+			car3.setColor('dark');
+			console.log(car3.getColor());
+			
+			/* 新方法 */
+			/* is方法 */
+			console.log(2 == '2');//true
+			console.log(+0 === -0);//true
+			console.log(NaN === NaN);//false
+			
+			console.log(Object.is(+0,-0));//false
+			console.log(Object.is(NaN,NaN));//true
+			
+		</script>
+
+	</body>
+</html>
