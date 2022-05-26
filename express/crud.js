@@ -99,7 +99,7 @@ app.post('/todos', async (req, res) => {
         res.status(200).json(todo)
     } catch (err) {
         res.status(500).json({
-            error:err.message
+            error: err.message
         })
     }
 
@@ -108,13 +108,53 @@ app.post('/todos', async (req, res) => {
 })
 
 // 修改任务
-app.patch('/todos', (req, res) => {
-    res.send('patch /todos')
+app.patch('/todos/:id', async (req, res) => {
+    // res.send('patch /todos')
+
+    try {
+        // 1. 获取表单数据
+        const todo = req.body
+        // 2. 查找要修改的任务项
+        const db = await getDb()
+        const ret = db.todos.find(todo => todo.id === Number.parseInt(req.params.id))
+        if (!ret) {
+            return res.status(404).end()
+        }
+        console.log(todo)
+        // 合并
+        Object.assign(ret, todo)
+
+        // 存储数据
+        await saveDb(db)
+        res.status(201).json(ret)
+    } catch (err) {
+        res.status(500).json({
+            error: err.message
+        })
+    }
+
 })
 
 // 删除任务
-app.delete('/todos/:id', (req, res) => {
-    res.send('delete /todos')
+app.delete('/todos/:id', async (req, res) => {
+    // res.send('delete /todos')
+
+    try {
+        const todoId = Number.parseInt(req.params.id)
+        const db = await getDb()
+        const index = db.todos.findIndex(todo => todo.id === todoId)
+        if (index === -1) {
+            return res.status(404).end()
+        }
+        // 删除一个
+        db.todos.splice(index, 1)
+        await saveDb(db)
+        res.status(204).end()
+    } catch (err) {
+        res.status(500).json({
+            error: err.message
+        })
+    }
 })
 
 
